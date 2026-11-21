@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nx-welcome',
@@ -946,8 +947,15 @@ nx g &#64;nx/angular:component ui/src/lib/button</pre>
         </p>
       </div>
     </div>
+
+    <button (click)="moveToTask()">123</button>
   `,
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class NxWelcome {}
+export class NxWelcome {
+  private router: Router = inject(Router);
+  moveToTask() {
+    this.router.navigate(['/task1']);
+  }
+}

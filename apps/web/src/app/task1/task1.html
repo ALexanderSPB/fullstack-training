@@ -1,0 +1,8 @@
+<p>task1 works!</p>
+
+@for (task of tasks(); track task.id) {
+  <p>{{ task.title }}</p>
+}
+
+
+<button (click)="addTask()">Добавить таск</button>
