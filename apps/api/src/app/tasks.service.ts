@@ -1,19 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Task } from '@fullstack-project1/shared-types';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class TasksService {
-  // Хранилище в памяти: данные сбрасываются при перезапуске сервера.
-  private tasks: Task[] = [{ id: 1, title: 'Изучить Nx', done: false }];
-  private nextId = 2;
+  constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Task[] {
-    return this.tasks;
+  findAll(): Promise<Task[]> {
+    return this.prisma.task.findMany({ orderBy: { id: 'asc' } });
   }
 
-  create(title: string): Task {
-    const task: Task = { id: this.nextId++, title, done: false };
-    this.tasks.push(task);
-    return task;
+  create(title: string): Promise<Task> {
+    return this.prisma.task.create({ data: { title } });
   }
 }

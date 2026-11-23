@@ -7,12 +7,12 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  findAll(): Task[] {
+  findAll(): Promise<Task[]> {
     return this.tasksService.findAll();
   }
 
   @Post()
-  create(@Body() body: CreateTaskRequest): Task {
+  create(@Body() body: CreateTaskRequest): Promise<Task> {
     return this.tasksService.create(body.title);
   }
 }
